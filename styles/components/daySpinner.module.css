@@ -1,0 +1,109 @@
+.background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(206, 147, 28, 1);
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.dayCounter {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  font-size: xx-large;
+}
+
+.skySpinner {
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  border-radius: 50%;
+  left: 0%;
+  top: 0%;
+  overflow: hidden;
+}
+
+.skySpinner div {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  top: calc(50% - 100px);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.day {
+  left: 5%;
+  background: yellow;
+}
+
+.night {
+  right: 5%;
+  background: grey;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  padding-bottom: 5%;
+}
+
+.dayText {
+  text-align: center;
+  font-size: xx-large;
+  width: 4em;
+}
+
+.nextButton {
+  width: 40px;
+  z-index: 2;
+}
+
+.cloudContainer {
+  position: absolute;
+  display: flex;
+  gap: 160px;
+  bottom: 50%;
+}
+
+.cloud:first-child {
+  bottom: 100px;
+}
+
+.cloud {
+  position: relative;
+  background: rgba(255, 255, 255);
+  width: 300px;
+  height: 100px;
+  border-radius: 150px;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cloud:after {
+  content: "";
+  background: rgba(255, 255, 255);
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: -50px;
+  left: 50px;
+}
+
+.cloud:before {
+  content: "";
+  background: rgba(255, 255, 255);
+  position: absolute;
+  width: 170px;
+  height: 150px;
+  border-radius: 50%;
+  top: -90px;
+  right: 40px;
+}
