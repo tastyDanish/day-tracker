@@ -4,7 +4,7 @@ import styles from "../../styles/components/daySpinner.module.css";
 import { AnimatePresence, motion, useAnimate } from "framer-motion";
 
 export interface DaySpinnerProps {
-  onclick(PartOfDay: number): void;
+  onclick(amount: number): void;
 }
 
 const nightColor = "hsl(257,91,30)";
@@ -26,74 +26,67 @@ const backwardColors = [
   [morningColor, nightColor],
 ];
 
-const convertPartToString = (rotations: number) => {
-  switch (rotations % 4) {
-    case -3:
-      return "Day";
-    case -2:
-      return "Evening";
-    case -1:
-      return "Night";
-    case 0:
-      return "Morning";
-    case 1:
-      return "Day";
-    case 2:
-      return "Evening";
-    case 3:
-      return "Night";
-    default:
-      return "Invalid number";
-  }
-};
-
 const DaySpinner = (props: DaySpinnerProps) => {
   const [scope, animate] = useAnimate();
   const [bgScope, bgAnimate] = useAnimate();
-  const [partOfDay, setPartOfDay] = useState(0);
-  const rotation = useRef(0);
+  const [rotation, setRotation] = useState(0);
+  const [dayPart, setDayPart] = useState("Morning");
+
+  const dayPartName = (rotations: number) => {
+    switch (rotations % 4) {
+      case 0:
+        return "Morning";
+      case 1:
+        return "Day";
+      case 2:
+        return "Evening";
+      case 3:
+        return "Night";
+      default:
+        return "Invalid number";
+    }
+  };
 
   const handleClick = (timeJump: number) => {
-    return () => {
-      rotation.current = rotation.current + timeJump;
-      const degrees = rotation.current * 90;
-      const bgColor =
-        timeJump < 0
-          ? backwardColors[Math.abs(rotation.current % 4)]
-          : forwardColors[rotation.current % 4];
-      bgAnimate(bgScope.current, {
-        backgroundColor: bgColor,
-      });
-      setPartOfDay(rotation.current);
-      animate(
-        scope.current,
-        { transform: `rotate(${degrees}deg)` },
-        { duration: 0.5, ease: "easeInOut" }
-      );
-    };
+    const newRotation = rotation + timeJump;
+    const degrees = newRotation * 90;
+    const bgColor =
+      timeJump < 0
+        ? backwardColors[Math.abs(newRotation % 4)]
+        : forwardColors[newRotation % 4];
+    bgAnimate(bgScope.current, {
+      backgroundColor: bgColor,
+    });
+    animate(
+      scope.current,
+      { transform: `rotate(${degrees}deg)` },
+      { duration: 0.5, ease: "easeInOut" }
+    );
+    props.onclick(timeJump);
+    setRotation(newRotation);
+    setDayPart(dayPartName(newRotation));
   };
 
   return (
     <>
-      <div className={styles.dayCounter}>
-        DAY: {Math.floor(rotation.current / 4)}
-      </div>
+      <div className={styles.dayCounter}>DAY: {Math.floor(rotation / 4)}</div>
       <div className={styles.textContainer}>
         <button
-          disabled={rotation.current < 1}
+          disabled={rotation < 1}
           className={styles.nextButton}
-          onClick={handleClick(-1)}>
+          onClick={() => handleClick(-1)}>
           {"<"}
         </button>
-        <div className={styles.dayText}>{convertPartToString(partOfDay)}</div>
+        <div className={styles.dayText}>{dayPart}</div>
         <button
           className={styles.nextButton}
-          onClick={handleClick(1)}>
+          onClick={() => handleClick(1)}>
           {">"}
         </button>
       </div>
+
       <AnimatePresence>
-        {convertPartToString(partOfDay) === "Day" && (
+        {dayPart === "Day" && (
           <div className={styles.cloudContainer}>
             <motion.div
               className={styles.cloud}
@@ -110,6 +103,60 @@ const DaySpinner = (props: DaySpinnerProps) => {
               transition={{ duration: 0.6 }}
             />
           </div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {dayPart === "Night" && (
+          <>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={styles.star}
+              style={{ top: 80, left: 400 }}>
+              ✦
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={styles.star}
+              style={{ top: 120, left: 720 }}>
+              ✦
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={styles.star}
+              style={{ top: 280, left: 460 }}>
+              ✦
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={styles.star}
+              style={{ top: 300, left: 750 }}>
+              ✦
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={styles.star}
+              style={{ top: 50, left: 600 }}>
+              ✦
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={styles.star}
+              style={{ top: 400, left: 600 }}>
+              ✦
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 

@@ -60,34 +60,42 @@ const Roller = (props: RollerProps) => {
   }, []);
 
   return (
-    <div className={styles.roller}>
-      {showCard && (
-        <motion.div
-          initial={{
-            scale: 0,
-          }}
-          animate={{
-            scale: 1,
-          }}
-          transition={{ delay: 0.4 }}
-          className={`${styles.showCard} ${colorToStyle(showCard.color)}`}
-        />
-      )}
-      <div className={styles.rollerContainer}>
-        <div
-          ref={rollerScope}
-          className={styles.cardContainer}>
-          {props.items.map((card) => (
-            <div
-              style={{ color: "black" }}
-              key={card.index}
-              className={`${styles.rollerCard} ${colorToStyle(
-                card.color
-              )}`}></div>
-          ))}
+    <>
+      <div
+        className={styles.overlay}
+        onClick={() => {
+          if (showCard) props.afterRoll();
+        }}
+      />
+      <div className={styles.roller}>
+        {showCard && (
+          <motion.div
+            initial={{
+              scale: 0,
+            }}
+            animate={{
+              scale: 1,
+            }}
+            transition={{ delay: 0.4 }}
+            className={`${styles.showCard} ${colorToStyle(showCard.color)}`}
+          />
+        )}
+        <div className={styles.rollerContainer}>
+          <div
+            ref={rollerScope}
+            className={styles.cardContainer}>
+            {props.items.map((card) => (
+              <div
+                style={{ color: "black" }}
+                key={card.index}
+                className={`${styles.rollerCard} ${colorToStyle(
+                  card.color
+                )}`}></div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Roller;

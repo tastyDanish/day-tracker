@@ -3,11 +3,17 @@ import { useState } from "react";
 import styles from "../styles/page.module.css";
 import Roller, { createList } from "./components/roller";
 import DaySpinner from "./components/daySpinner";
+import PlotClock from "./components/plotClock";
 
 const Home = () => {
   const [doRoll, setDoRoll] = useState(false);
+  const [time, setTime] = useState(0);
 
   const items = createList();
+
+  const timeChange = (amount: number) => {
+    setTime(time + amount);
+  };
 
   return (
     <main className={styles.main}>
@@ -25,8 +31,8 @@ const Home = () => {
           />
         )}
       </div>
-
-      <DaySpinner onclick={() => {}} />
+      <PlotClock time={time} />
+      <DaySpinner onclick={timeChange} />
     </main>
   );
 };

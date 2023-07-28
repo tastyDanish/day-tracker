@@ -1,3 +1,13 @@
+.overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: grey;
+  opacity: 0.5;
+  z-index: 99;
+}
 .roller {
   position: absolute;
   height: 200px;
@@ -5,6 +15,7 @@
   width: 800px;
   top: 40%;
   z-index: 100;
+  background: lightgray;
 }
 
 .showCard {

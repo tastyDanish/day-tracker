@@ -1,0 +1,93 @@
+.plotClock {
+  position: absolute;
+  width: 200px;
+  height: 70%;
+  right: 2%;
+  top: 10%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-color: transparent transparent;
+}
+
+.plotClock::after {
+  position: absolute;
+  content: "";
+  height: calc(100% + 20px);
+  top: -10px;
+  width: calc(100% + 20px);
+  left: -10px;
+  background: grey;
+  opacity: 0.4;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+.plotClock::-webkit-scrollbar {
+  width: 10px;
+}
+
+.plotClock::-webkit-scrollbar-thumb {
+  background-color: grey;
+}
+
+.plotCard {
+  opacity: 1;
+  flex-shrink: 0;
+  height: 100px;
+  width: auto;
+  background: white;
+  border-radius: 10px;
+  color: black;
+}
+
+.plotProgress {
+  height: 10px;
+  background: blue;
+  transition: width 200ms;
+}
+
+.plotButton {
+  position: absolute;
+  top: 5%;
+  right: 2%;
+}
+
+.star {
+  color: white;
+  font-size: 50px;
+  position: absolute;
+}
+
+.star:nth-of-type(1) {
+  top: 20px;
+  left: 60px;
+}
+.star:nth-of-type(2) {
+  top: 90px;
+  right: 80px;
+  font-size: 20px;
+}
+.star:nth-of-type(3) {
+  bottom: 10px;
+  right: 10px;
+  font-size: 50px;
+}
+.star:nth-of-type(4) {
+  bottom: 00px;
+  left: 40px;
+  font-size: 80px;
+}
+.star:nth-of-type(5) {
+  top: -100px;
+  left: 250px;
+  font-size: 60px;
+}
+.star:nth-of-type(6) {
+  bottom: -40px;
+  left: 250px;
+  font-size: 30px;
+}
